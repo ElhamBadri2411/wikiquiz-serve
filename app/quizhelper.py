@@ -1,11 +1,13 @@
 import wikipedia as wiki
 from typing import List, Dict
 from constants import BLANK
+from sklearn.feature_extraction.text import TfidfVectorizer
 
+def top_terms(wiki_data: str):
+    vectorizer = TfidfVectorizer()
+    response = vectorizer.fit_transform([wiki_data])
+    return response
 
-def get_top_n_terms(num_terms: int, wiki_data: str) -> List[str]:
-    """ Returns top num_terms of terms in wiki_data"""
-    pass
 
 def get_data(name_of_wiki_page: str) -> List[str]:
     """Returns the data from wikipedia page name_of_wiki_page, with each index in the list being a sentence 
@@ -44,16 +46,15 @@ def remove_special_word(special_word: str, possible_sentences: List[str]) -> Lis
     
     return sentences_with_blank
 
-def create_questions(name_of_wiki_page: str) -> Dict
-
-
-
+def create_question(name_of_wiki_page: str) -> Dict[]:
+    pass
     
 
 
 
 if __name__ == "__main__":
-   # print(get_data('Donkey'))
+   print(get_data('Donkey'))
    print (find_usable_sentences(['AB','ac','ad','bb','dd'], 'a'))
    print(remove_special_word('a',  ['AB','ac','ad']))
+   print(top_terms(get_data('Donkey')))
     
