@@ -22,16 +22,18 @@ def get_data(name_of_wiki_page: str) -> List[str]:
     """Returns the data from wikipedia page name_of_wiki_page, with each index in the list being a sentence 
     """
     print(name_of_wiki_page)
-    print(wiki.search(name_of_wiki_page))
-    print(wiki.suggest(name_of_wiki_page))
 
     wiki_search = wiki.search(name_of_wiki_page)
     name_of_wiki_page_caps = name_of_wiki_page.upper()
     wiki_search_caps = [item.upper() for item in wiki_search]
 
+    print(name_of_wiki_page_caps)
+    print(wiki_search_caps)
+
     if name_of_wiki_page_caps in wiki_search_caps:
-        print(name_of_wiki_page_caps in wiki_search_caps)
-        all_data = wiki.page(name_of_wiki_page, auto_suggest=False).content
+        index = wiki_search_caps.index(name_of_wiki_page_caps)
+        print(wiki_search[index])
+        all_data = wiki.page(wiki_search[index], auto_suggest=False).content
     else:
         all_data = wiki.page(wiki.suggest(name_of_wiki_page)).content
 
