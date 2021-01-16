@@ -4,14 +4,19 @@ from constants import BLANK
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 
-def top_terms(wiki_data: List[str]):
-    """Returns the top terms using tf-idf"""
+def get_tfidf(wiki_data: List[str]):
+    """Returns tfidf words ranked from highest to lowest in a dictionary"""
 
     vectorizer = TfidfVectorizer(use_idf=True)
     tfIdf = vectorizer.fit_transform(wiki_data)
     df = pd.DataFrame(tfIdf[0].T.todense(), index=vectorizer.get_feature_names(), columns=["TF-IDF"])
     df = df.sort_values('TF-IDF', ascending=False)
-    print (df.head(25))
+    df = df.nlargest(5, 'TF-IDF')
+    #tfidfdict = df.to_dict('index') 
+    tfidflist = list(df.index.values)
+
+    return tfidflist
+    
     
 def get_data(name_of_wiki_page: str) -> List[str]:
     """Returns the data from wikipedia page name_of_wiki_page, with each index in the list being a sentence 
@@ -54,10 +59,8 @@ def create_question(name_of_wiki_page: str):
     pass
     
 
-
-
 if __name__ == "__main__":
    print (find_usable_sentences(['AB','ac','ad','bb','dd'], 'a'))
    print(remove_special_word('a',  ['AB','ac','ad']))
-   print(top_terms(get_data('Donkey')))
+   print(get_tfidf(get_data('Donkey')))
     
