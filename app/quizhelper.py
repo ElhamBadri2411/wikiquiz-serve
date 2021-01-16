@@ -57,7 +57,6 @@ def find_usable_sentences(wikipedia_page: List[str], special_word: str) -> List[
         if special_word.lower() in sentence.lower():
             possible_sentences.append(sentence)
 
-    possible_sentences.sort()
     return possible_sentences
 
 def remove_special_word(special_word: str, possible_sentences: List[str]) -> List[str]:
