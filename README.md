@@ -12,4 +12,4 @@ That's it.
 
 ## Start Server
 
-`python app/quiz.py`
+`python app/app.py`
