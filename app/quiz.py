@@ -1,5 +1,6 @@
 from flask import Flask
-from wikipedia import wiki
+import wikipedia as wiki
+
 app = Flask(__name__)
 
 def get_info(name):
