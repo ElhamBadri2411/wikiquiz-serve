@@ -1,18 +1,18 @@
 import wikipedia as wiki
 from typing import List, Dict
-from constants import BLANK
+from constants import BLANK, QUESTION, ANSWER, OPTIONS 
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 
 def get_tfidf(wiki_data: List[str]):
-    """Returns tfidf words ranked from highest to lowest in a dictionary"""
+    """Returns top 5 tfidf words ranked from highest to lowest in a dictionary"""
 
     vectorizer = TfidfVectorizer(use_idf=True)
     tfIdf = vectorizer.fit_transform(wiki_data)
+    print(tfIdf)
     df = pd.DataFrame(tfIdf[0].T.todense(), index=vectorizer.get_feature_names(), columns=["TF-IDF"])
     df = df.sort_values('TF-IDF', ascending=False)
     df = df.nlargest(5, 'TF-IDF')
-    #tfidfdict = df.to_dict('index') 
     tfidflist = list(df.index.values)
 
     return tfidflist
