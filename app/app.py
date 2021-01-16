@@ -15,7 +15,8 @@ def generate():
     title = data['title']
 
     questions = create_questions(title)
-    return jsonify(questions)
+    response_dict = {'quiz': questions}
+    return jsonify(response_dict)
 
 
 if __name__ == "__main__":
