@@ -11,4 +11,4 @@ def get_info(name):
 def hello():
     return "Hello World"
 
-print(get_info('whale'))
+print( get_info('whale') )
