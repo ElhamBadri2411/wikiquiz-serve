@@ -47,6 +47,7 @@ def remove_special_word(special_word: str, possible_sentences: List[str]) -> Lis
     """ Returns possible_sentences with special_word removed from every index,
     replaced by BLANK"""
 
+
     sentences_with_blank = []
     for sentence in possible_sentences:
         blanked_sentence = sentence.lower().replace(special_word, BLANK)
@@ -54,14 +55,17 @@ def remove_special_word(special_word: str, possible_sentences: List[str]) -> Lis
     
     return sentences_with_blank
 
-def create_question(name_of_wiki_page: str):
-    pass
-    
+def create_questions(name_of_wiki_page: str):
+    wiki_data = get_data(name_of_wiki_page)
+    top_ten = get_tfidf(wiki_data)
+    for key_word in top_ten:
+        possible_sentences = find_usable_sentences(wiki_data, key_word)
+        print (possible_sentences) 
+        possible_sentences = remove_special_word(key_word, possible_sentences)
+        print (possible_sentences)   
     
     
 
 if __name__ == "__main__":
-   print (find_usable_sentences(['AB','ac','ad','bb','dd'], 'a'))
-   print(remove_special_word('a',  ['AB','ac','ad']))
-   print(get_tfidf(get_data('Donkey')))
+   create_questions('Donkey')
     
