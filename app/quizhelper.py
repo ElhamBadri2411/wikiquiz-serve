@@ -35,7 +35,7 @@ def get_data(name_of_wiki_page: str) -> List[str]:
         print(wiki_search[index])
         all_data = wiki.page(wiki_search[index], auto_suggest=False).content
     else:
-        all_data = wiki.page(wiki.suggest(name_of_wiki_page)).content
+        all_data = wiki.page(name_of_wiki_page).content
 
     all_data = all_data.replace('\n','')
     all_data = all_data.replace('\t','')
