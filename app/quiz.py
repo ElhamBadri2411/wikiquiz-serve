@@ -4,11 +4,11 @@ import wikipedia as wiki
 app = Flask(__name__)
 
 def get_info(name):
-    return wiki.summary(name)
+    return 
     
 
 @app.route("/")
 def hello():
     return "Hello World"
 
-get_info('whale')
+print(get_info('wha le'))
