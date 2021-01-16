@@ -3,7 +3,7 @@ from typing import List, Dict
 from constants import BLANK, QUESTION, ANSWER, OPTIONS 
 from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
 import pandas as pd
-from random import choice
+from random import choice, shuffle
 
 def get_tfidf(wiki_data: List[str]):
     """Returns top 5 tfidf words ranked from highest to lowest in a dictionary"""
@@ -65,17 +65,27 @@ def create_questions(name_of_wiki_page: str):
 
     for key_word in top_ten:
 
-        other_options = top_ten.remove(key_word)
+        possible_options = top_ten[:]
+        possible_options.remove(key_word)
+
         possible_sentences = find_usable_sentences(wiki_data, key_word)
-        #print ("_______________" + key_word + "_______________" )
-        #print (possible_sentences) 
-        #print('\n')
         possible_sentences = remove_special_word(key_word, possible_sentences)
-        #print (possible_sentences)  
-        #print('\n\n\n') 
+
+        random_question = choice(possible_sentences)
+
+        other_options = []
+        for i in range(3):
+            option = choice(possible_options)
+
+            other_options.append(option)
+            possible_options.remove(option)
+
+        other_options.append(key_word)
+        shuffle(other_options)
+        question_list.append( {QUESTION: random_question, ANSWER: key_word, OPTIONS: other_options } )
     
-    
+    return question_list
 
 if __name__ == "__main__":
-   create_questions('Donkey')
-    
+   print(create_questions('Donkey'))
+   
