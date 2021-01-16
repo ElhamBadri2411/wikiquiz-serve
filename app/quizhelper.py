@@ -88,4 +88,5 @@ def create_questions(name_of_wiki_page: str):
 
 if __name__ == "__main__":
    print(create_questions('Donkey'))
+   print('TYFUMP')
    
