@@ -1,4 +1,4 @@
 BLANK = '____________'
-QUESTION = 'Question'
-ANSWER = 'Answer'
-OPTIONS = 'Options'
+QUESTION = 'question'
+ANSWER = 'answer'
+OPTIONS = '= options'
