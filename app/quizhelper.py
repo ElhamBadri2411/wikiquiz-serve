@@ -21,8 +21,20 @@ def get_tfidf(wiki_data: List[str]):
 def get_data(name_of_wiki_page: str) -> List[str]:
     """Returns the data from wikipedia page name_of_wiki_page, with each index in the list being a sentence 
     """
+    print(name_of_wiki_page)
+    print(wiki.search(name_of_wiki_page))
+    print(wiki.suggest(name_of_wiki_page))
 
-    all_data = wiki.page(name_of_wiki_page, auto_suggest=False).content
+    wiki_search = wiki.search(name_of_wiki_page)
+    name_of_wiki_page_caps = name_of_wiki_page.upper()
+    wiki_search_caps = [item.upper() for item in wiki_search]
+
+    if name_of_wiki_page_caps in wiki_search_caps:
+        print(name_of_wiki_page_caps in wiki_search_caps)
+        all_data = wiki.page(name_of_wiki_page, auto_suggest=False).content
+    else:
+        all_data = wiki.page(wiki.suggest(name_of_wiki_page)).content
+
     all_data = all_data.replace('\n','')
     all_data = all_data.replace('\t','')
     split_data = all_data.split('.')
@@ -59,6 +71,8 @@ def remove_special_word(special_word: str, possible_sentences: List[str]) -> Lis
     return sentences_with_blank
 
 def create_questions(name_of_wiki_page: str):
+    """Returns a list of questions
+    """
     wiki_data = get_data(name_of_wiki_page)
     top_ten = get_tfidf(wiki_data)
     question_list = []
@@ -87,6 +101,7 @@ def create_questions(name_of_wiki_page: str):
     return question_list
 
 if __name__ == "__main__":
-   print(create_questions('Donkey'))
+   #print(create_questions('whale'))
    print('TYFUMP')
+   print(get_data('arpods'))
    
