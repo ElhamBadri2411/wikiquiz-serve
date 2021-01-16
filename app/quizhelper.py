@@ -1,7 +1,6 @@
 import wikipedia as wiki
 from typing import List, Dict
-from constants import BLANK, QUESTION, ANSWER, OPTIONS 
-from app.constants import BLANK
+from app.constants import BLANK, QUESTION, ANSWER, OPTIONS 
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 
