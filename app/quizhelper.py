@@ -22,6 +22,8 @@ def get_data(name_of_wiki_page: str) -> List[str]:
     """
 
     all_data = wiki.page(name_of_wiki_page, auto_suggest=False).content
+    all_data = all_data.replace('\n','')
+    all_data = all_data.replace('\t','')
     split_data = all_data.split('.')
 
     return split_data
@@ -60,9 +62,12 @@ def create_questions(name_of_wiki_page: str):
     top_ten = get_tfidf(wiki_data)
     for key_word in top_ten:
         possible_sentences = find_usable_sentences(wiki_data, key_word)
+        print ("_______________" + key_word + "_______________" )
         print (possible_sentences) 
+        print('\n')
         possible_sentences = remove_special_word(key_word, possible_sentences)
-        print (possible_sentences)   
+        print (possible_sentences)  
+        print('\n\n\n') 
     
     
 
