@@ -6,16 +6,15 @@ app = Flask(__name__)
 CORS(app)
 
 
-def get_info(name):
-    return wiki.summary(name)
-    
+print (wiki.summary("donkey", auto_suggest=False))
+print (wiki.page("donkey", auto_suggest=False).content)
 
 @app.route("/")
 def hello():
     return "Hello World"
 
 
-print(get_info('whale'))
+
 
 
 if __name__ == "__main__":
