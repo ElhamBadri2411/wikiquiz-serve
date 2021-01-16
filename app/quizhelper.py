@@ -2,13 +2,17 @@ import wikipedia as wiki
 from typing import List, Dict
 from constants import BLANK
 from sklearn.feature_extraction.text import TfidfVectorizer
+import pandas as pd
 
-def top_terms(wiki_data: str):
-    vectorizer = TfidfVectorizer()
-    response = vectorizer.fit_transform([wiki_data])
-    return response
+def top_terms(wiki_data: List[str]):
+    """Returns the top terms using tf-idf"""
 
-
+    vectorizer = TfidfVectorizer(use_idf=True)
+    tfIdf = vectorizer.fit_transform(wiki_data)
+    df = pd.DataFrame(tfIdf[0].T.todense(), index=vectorizer.get_feature_names(), columns=["TF-IDF"])
+    df = df.sort_values('TF-IDF', ascending=False)
+    print (df.head(25))
+    
 def get_data(name_of_wiki_page: str) -> List[str]:
     """Returns the data from wikipedia page name_of_wiki_page, with each index in the list being a sentence 
     """
@@ -46,14 +50,13 @@ def remove_special_word(special_word: str, possible_sentences: List[str]) -> Lis
     
     return sentences_with_blank
 
-def create_question(name_of_wiki_page: str) -> Dict[]:
+def create_question(name_of_wiki_page: str):
     pass
     
 
 
 
 if __name__ == "__main__":
-   print(get_data('Donkey'))
    print (find_usable_sentences(['AB','ac','ad','bb','dd'], 'a'))
    print(remove_special_word('a',  ['AB','ac','ad']))
    print(top_terms(get_data('Donkey')))
