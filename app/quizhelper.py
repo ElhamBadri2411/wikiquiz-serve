@@ -23,14 +23,11 @@ def format_sentence(sentence: str)-> str:
     """
 
     sentence += '.'
-
+    sentence = sentence.strip()
     if sentence[0].isalpha():
-        sentence.capitalize
+        sentence = sentence.capitalize()
 
     return sentence
-
-    
-
 
     
     
