@@ -12,4 +12,4 @@ That's it.
 
 ## Start Server
 
-`python app.py`
+`python app/flask_app.py`
