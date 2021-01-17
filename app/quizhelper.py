@@ -70,7 +70,7 @@ def remove_special_word(special_word: str, sentence: str) -> str:
 def get_questions(qdict) -> List[str]:
     questions = []
     for item in qdict:
-        questions.append(item[QUESTION])
+        questions.append(item['full_question'])
 
     return questions
 
