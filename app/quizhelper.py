@@ -92,7 +92,7 @@ def create_questions(name_of_wiki_page: str):
         all_questions = get_questions(question_list)
 
         if full_question in all_questions:
-            all_questions.remove(full_question)
+            possible_sentences.remove(full_question)
             full_question = choice(possible_sentences)
 
         full_question_replaced = remove_special_word(key_word, full_question)
