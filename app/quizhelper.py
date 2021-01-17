@@ -4,6 +4,7 @@ from constants import BLANK, QUESTION, ANSWER, OPTIONS
 from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
 import pandas as pd
 from random import choice, shuffle
+from difflib import SequenceMatcher
 
 def get_tfidf(wiki_data: List[str]):
     """Returns top 5 tfidf words ranked from highest to lowest in a dictionary"""
@@ -54,7 +55,7 @@ def find_usable_sentences(wikipedia_page: List[str], special_word: str) -> List[
     possible_sentences = []
 
     for sentence in wikipedia_page:
-        if special_word.lower() in sentence.lower():
+        if special_word.lower() in sentence.lower() and sentence not in possible_sentences:
             possible_sentences.append(sentence)
 
     return possible_sentences
@@ -104,5 +105,4 @@ def create_questions(name_of_wiki_page: str):
 if __name__ == "__main__":
    #print(create_questions('whale'))
    print('TYFUMP')
-   print(get_data('arpods'))
-   
+   print (create_questions('airpods'))
