@@ -31,7 +31,7 @@ def format_sentence(sentence: str)-> str:
 
     
     
-def get_data(name_of_wiki_page: str) -> List[str]:
+def get_data(name_of_wiki_page: str):
     """Returns the data from wikipedia page name_of_wiki_page, with each index in the list being a sentence 
     """
 
@@ -41,17 +41,18 @@ def get_data(name_of_wiki_page: str) -> List[str]:
 
     if name_of_wiki_page_caps in wiki_search_caps:
         index = wiki_search_caps.index(name_of_wiki_page_caps)
-        print(wiki_search[index])
-        all_data = wiki.page(wiki_search[index], auto_suggest=False).content
+        updated_search_query = wiki_search[index]
+        all_data = wiki.page(updated_search_query, auto_suggest=False).content
     else:
-        all_data = wiki.page(name_of_wiki_page).content
+        updated_search_query = wiki.suggest(name_of_wiki_page)
+        all_data = wiki.page(updated_search_query).content
 
     all_data = all_data.replace('\n','')
     all_data = all_data.replace('\t','')
     all_data = all_data.replace('=', " ")
     split_data = all_data.split('. ')
 
-    return split_data
+    return split_data, updated_search_query
 
 def find_usable_sentences(wikipedia_page: List[str], special_word: str) -> List[str]:
     """returns a list of usable sentences using the information recieved from a wikipedia page, 
@@ -87,7 +88,7 @@ def get_questions(qdict) -> List[str]:
 def create_questions(name_of_wiki_page: str):
     """Returns a list of questions
     """
-    wiki_data = get_data(name_of_wiki_page)
+    wiki_data, updated_query = get_data(name_of_wiki_page)
     top_ten = get_tfidf(wiki_data)
     question_list = []
 
@@ -121,8 +122,3 @@ def create_questions(name_of_wiki_page: str):
 
     shuffle(question_list)
     return question_list
-
-if __name__ == "__main__":
-   #print(create_questions('whale'))
-   print('TYFUMP')
-   print (create_questions('airpods'))
