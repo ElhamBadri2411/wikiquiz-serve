@@ -11,5 +11,6 @@ Set up virtual environment
 That's it.
 
 ## Start Server
+Start the server with
 
-`python app/flask_app.py`
+`python wsgi.py`
