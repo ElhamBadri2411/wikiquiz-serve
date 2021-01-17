@@ -1,6 +1,6 @@
 import wikipedia as wiki
-from typing import List, Dict
-from constants import BLANK, QUESTION, ANSWER, OPTIONS, NUMBER_OF_ANSWERS, FULL_QUESTION 
+from typing import List
+from app.constants import BLANK, QUESTION, ANSWER, OPTIONS, NUMBER_OF_ANSWERS, FULL_QUESTION
 from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
 import pandas as pd
 from random import choice, shuffle

@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from quizhelper import create_questions
+from app.quizhelper import create_questions
 
 app = Flask(__name__)
 CORS(app)
