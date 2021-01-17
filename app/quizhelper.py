@@ -4,6 +4,7 @@ from constants import BLANK, QUESTION, ANSWER, OPTIONS, NUMBER_OF_ANSWERS, FULL_
 from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
 import pandas as pd
 from random import choice, shuffle
+import re
 
 def get_tfidf(wiki_data: List[str]):
     """Returns top 5 tfidf words ranked from highest to lowest in a dictionary"""
@@ -50,7 +51,7 @@ def find_usable_sentences(wikipedia_page: List[str], special_word: str) -> List[
     possible_sentences = []
 
     for sentence in wikipedia_page:
-        if special_word.lower() in sentence.lower():
+        if re.search(r'\b' + special_word.lower() + r'\b', sentence.lower()):
             possible_sentences.append(sentence)
 
     return possible_sentences
@@ -100,6 +101,7 @@ def create_questions(name_of_wiki_page: str):
             other_options.append(option)
             possible_options.remove(option)
 
+        full_question_replaced
         other_options.append(key_word)
         shuffle(other_options)
         question_list.append({QUESTION: full_question_replaced, ANSWER: key_word, OPTIONS: other_options, FULL_QUESTION: full_question})
