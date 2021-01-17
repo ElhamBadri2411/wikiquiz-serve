@@ -14,8 +14,8 @@ def generate():
     data = request.get_json(force=True)
     title = data['title']
 
-    questions = create_questions(title)
-    response_dict = {'quiz': questions}
+    questions, updated_query = create_questions(title)
+    response_dict = {'quiz': questions, 'updated_query': updated_query}
     return jsonify(response_dict)
 
 

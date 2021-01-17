@@ -121,4 +121,4 @@ def create_questions(name_of_wiki_page: str):
         question_list.append({QUESTION: full_question_replaced, ANSWER: key_word, OPTIONS: other_options, FULL_QUESTION: full_question})
 
     shuffle(question_list)
-    return question_list
+    return question_list, updated_query
