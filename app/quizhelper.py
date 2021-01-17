@@ -4,7 +4,6 @@ from constants import BLANK, QUESTION, ANSWER, OPTIONS
 from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
 import pandas as pd
 from random import choice, shuffle
-from difflib import SequenceMatcher
 
 def get_tfidf(wiki_data: List[str]):
     """Returns top 5 tfidf words ranked from highest to lowest in a dictionary"""
@@ -60,17 +59,20 @@ def find_usable_sentences(wikipedia_page: List[str], special_word: str) -> List[
 
     return possible_sentences
 
-def remove_special_word(special_word: str, possible_sentences: List[str]) -> List[str]:
+def remove_special_word(special_word: str, sentence: str) -> str:
     """ Returns possible_sentences with special_word removed from every index,
     replaced by BLANK"""
 
-
-    sentences_with_blank = []
-    for sentence in possible_sentences:
-        blanked_sentence = sentence.lower().replace(special_word, BLANK)
-        sentences_with_blank.append(blanked_sentence)
+    blanked_sentence = sentence.lower().replace(special_word, BLANK)
     
-    return sentences_with_blank
+    return blanked_sentence
+
+def get_questions(qdict) -> List[str]:
+    questions = []
+    for item in qdict:
+        questions.append(item[QUESTION])
+
+    return questions
 
 def create_questions(name_of_wiki_page: str):
     """Returns a list of questions
@@ -85,9 +87,15 @@ def create_questions(name_of_wiki_page: str):
         possible_options.remove(key_word)
 
         possible_sentences = find_usable_sentences(wiki_data, key_word)
-        possible_sentences = remove_special_word(key_word, possible_sentences)
 
-        random_question = choice(possible_sentences)
+        full_question = choice(possible_sentences)
+        all_questions = get_questions(question_list)
+
+        if full_question in all_questions:
+            all_questions.remove(full_question)
+            full_question = choice(possible_sentences)
+
+        full_question_replaced = remove_special_word(key_word, full_question)
 
         other_options = []
         for i in range(3):
@@ -98,7 +106,7 @@ def create_questions(name_of_wiki_page: str):
 
         other_options.append(key_word)
         shuffle(other_options)
-        question_list.append( {QUESTION: random_question, ANSWER: key_word, OPTIONS: other_options } )
+        question_list.append({QUESTION: full_question, ANSWER: key_word, OPTIONS: other_options, 'full_question': full_question_replaced})
     
     return question_list
 
