@@ -1,6 +1,6 @@
 import wikipedia as wiki
 from typing import List, Dict
-from constants import BLANK, QUESTION, ANSWER, OPTIONS 
+from constants import BLANK, QUESTION, ANSWER, OPTIONS, NUMBER_OF_ANSWERS, FULL_QUESTION 
 from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
 import pandas as pd
 from random import choice, shuffle
@@ -21,14 +21,10 @@ def get_tfidf(wiki_data: List[str]):
 def get_data(name_of_wiki_page: str) -> List[str]:
     """Returns the data from wikipedia page name_of_wiki_page, with each index in the list being a sentence 
     """
-    print(name_of_wiki_page)
 
     wiki_search = wiki.search(name_of_wiki_page)
     name_of_wiki_page_caps = name_of_wiki_page.upper()
     wiki_search_caps = [item.upper() for item in wiki_search]
-
-    print(name_of_wiki_page_caps)
-    print(wiki_search_caps)
 
     if name_of_wiki_page_caps in wiki_search_caps:
         index = wiki_search_caps.index(name_of_wiki_page_caps)
@@ -70,7 +66,7 @@ def remove_special_word(special_word: str, sentence: str) -> str:
 def get_questions(qdict) -> List[str]:
     questions = []
     for item in qdict:
-        questions.append(item['full_question'])
+        questions.append(item[FULL_QUESTION])
 
     return questions
 
@@ -98,7 +94,7 @@ def create_questions(name_of_wiki_page: str):
         full_question_replaced = remove_special_word(key_word, full_question)
 
         other_options = []
-        for i in range(3):
+        for i in range(NUMBER_OF_ANSWERS - 1):
             option = choice(possible_options)
 
             other_options.append(option)
@@ -106,7 +102,7 @@ def create_questions(name_of_wiki_page: str):
 
         other_options.append(key_word)
         shuffle(other_options)
-        question_list.append({QUESTION: full_question_replaced, ANSWER: key_word, OPTIONS: other_options, 'full_question': full_question})
+        question_list.append({QUESTION: full_question_replaced, ANSWER: key_word, OPTIONS: other_options, FULL_QUESTION: full_question})
 
     shuffle(question_list)
     return question_list
