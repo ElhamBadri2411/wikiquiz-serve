@@ -91,7 +91,7 @@ def create_questions(name_of_wiki_page: str):
         full_question = choice(possible_sentences)
         all_questions = get_questions(question_list)
 
-        if full_question in all_questions:
+        if full_question in all_questions and len(possible_sentences) > 1:
             possible_sentences.remove(full_question)
             full_question = choice(possible_sentences)
 
