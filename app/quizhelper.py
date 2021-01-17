@@ -47,8 +47,8 @@ def get_data(name_of_wiki_page: str):
         updated_search_query = wiki.suggest(name_of_wiki_page)
         all_data = wiki.page(updated_search_query).content
 
-    all_data = all_data.replace('\n','')
-    all_data = all_data.replace('\t','')
+    all_data = all_data.replace('\n',' ')
+    all_data = all_data.replace('\t',' ')
     all_data = all_data.replace('=', " ")
     split_data = all_data.split('. ')
 
