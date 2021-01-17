@@ -107,7 +107,8 @@ def create_questions(name_of_wiki_page: str):
         other_options.append(key_word)
         shuffle(other_options)
         question_list.append({QUESTION: full_question_replaced, ANSWER: key_word, OPTIONS: other_options, 'full_question': full_question})
-    
+
+    question_list = shuffle(question_list)
     return question_list
 
 if __name__ == "__main__":
