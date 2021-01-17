@@ -17,6 +17,21 @@ def get_tfidf(wiki_data: List[str]):
     tfidflist = list(df.index.values)
 
     return tfidflist
+
+def format_sentence(sentence: str)-> str:
+    """Returns a correctly formatted sentence
+    """
+
+    sentence += '.'
+
+    if sentence[0].isalpha():
+        sentence.capitalize
+
+    return sentence
+
+    
+
+
     
     
 def get_data(name_of_wiki_page: str) -> List[str]:
@@ -101,7 +116,7 @@ def create_questions(name_of_wiki_page: str):
             other_options.append(option)
             possible_options.remove(option)
 
-        full_question_replaced
+        full_question_replaced = format_sentence(full_question_replaced)
         other_options.append(key_word)
         shuffle(other_options)
         question_list.append({QUESTION: full_question_replaced, ANSWER: key_word, OPTIONS: other_options, FULL_QUESTION: full_question})
